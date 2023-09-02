@@ -126,3 +126,69 @@ code {
     </div>
   </div>
 </div>
+`;
+const fileRE = /(?:[a-zA-Z]:\\|\/).*?:\d+:\d+/g;
+const codeframeRE = /^(?:>?\s+\d+\s+\|.*|\s+\|\s*\^.*)\r?\n/gm;
+// Allow `ErrorOverlay` to extend `HTMLElement` even in environments where
+// `HTMLElement` was not originally defined.
+const { HTMLElement = class {
+} } = globalThis;
+class ErrorOverlay extends HTMLElement {
+    constructor(err, links = true) {
+        var _a;
+        super();
+        this.root = this.attachShadow({ mode: 'open' });
+        this.root.innerHTML = template;
+        codeframeRE.lastIndex = 0;
+        const hasFrame = err.frame && codeframeRE.test(err.frame);
+        const message = hasFrame
+            ? err.message.replace(codeframeRE, '')
+            : err.message;
+        if (err.plugin) {
+            this.text('.plugin', `[plugin:${err.plugin}] `);
+        }
+        this.text('.message-body', message.trim());
+        const [file] = (((_a = err.loc) === null || _a === void 0 ? void 0 : _a.file) || err.id || 'unknown file').split(`?`);
+        if (err.loc) {
+            this.text('.file', `${file}:${err.loc.line}:${err.loc.column}`, links);
+        }
+        else if (err.id) {
+            this.text('.file', file);
+        }
+        if (hasFrame) {
+            this.text('.frame', err.frame.trim());
+        }
+        this.text('.stack', err.stack, links);
+        this.root.querySelector('.window').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        this.addEventListener('click', () => {
+            this.close();
+        });
+    }
+    text(selector, text, linkFiles = false) {
+        const el = this.root.querySelector(selector);
+        if (!linkFiles) {
+            el.textContent = text;
+        }
+        else {
+            let curIndex = 0;
+            let match;
+            fileRE.lastIndex = 0;
+            while ((match = fileRE.exec(text))) {
+                const { 0: file, index } = match;
+                if (index != null) {
+                    const frag = text.slice(curIndex, index);
+                    el.appendChild(document.createTextNode(frag));
+                    const link = document.createElement('a');
+                    link.textContent = file;
+                    link.className = 'file-link';
+                    link.onclick = () => {
+                        fetch(`${base$1}__open-in-editor?file=` + encodeURIComponent(file));
+                    };
+                    el.appendChild(link);
+                    curIndex += frag.length + file.length;
+                }
+            }
+        }
+    }
