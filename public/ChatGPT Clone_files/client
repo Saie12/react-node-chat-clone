@@ -192,3 +192,8 @@ class ErrorOverlay extends HTMLElement {
             }
         }
     }
+    close() {
+        var _a;
+        (_a = this.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(this);
+    }
+}
