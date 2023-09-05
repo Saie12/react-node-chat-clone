@@ -1,4 +1,4 @@
-# react-node-chatgpt-clone
+# 🎶react-node-chatgpt-clone 👀
 
 ##  ༼ つ ◕_◕ ༽つ 💬
 
@@ -14,3 +14,5 @@ Just doing actually playing with OpenAI API by building a chatgpt clone with Jav
 - Adding remaining necessary blocks
 ### 👩‍💻
 <br />
+
+![UI preview](./public/preview.png)
