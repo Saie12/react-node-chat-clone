@@ -65,3 +65,26 @@ function App() {
       setIsResponseLoading(false)
     }
   }
+
+    useEffect(() => {
+    if (!currentTitle && text && message) {
+      setCurrentTitle(text)
+    }
+
+    if (currentTitle && text && message) {
+      setPreviousChats((prevChats) => [
+        ...prevChats,
+        {
+          title: currentTitle,
+          role: 'user',
+          content: text,
+        },
+        {
+          title: currentTitle,
+          role: message.role,
+          content:
+            message.content.charAt(0).toUpperCase() + message.content.slice(1),
+        },
+      ])
+    }
+  }
