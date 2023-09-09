@@ -125,3 +125,26 @@ function App() {
             </div>
           </div>
         </section>
+
+        <section className="main">
+          {!currentTitle && <h1>Saiesh's GPT</h1>}
+          <div className="main-header">
+            <ul>
+              {currentChat?.map((chatMsg, idx) => (
+                <li key={idx} ref={scrollToLastItem}>
+                  <img
+                    src={
+                      chatMsg.role === 'user'
+                        ? '../public/face_logo.svg'
+                        : '../public/ChatGPT_logo.svg'
+                    }
+                    alt={chatMsg.role === 'user' ? 'Face icon' : 'ChatGPT icon'}
+                    style={{
+                      backgroundColor: chatMsg.role === 'user' && '#ECECF1',
+                    }}
+                  />
+                  <p>{chatMsg.content}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
