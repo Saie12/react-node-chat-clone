@@ -95,3 +95,33 @@ function App() {
   const uniqueTitles = Array.from(
     new Set(previousChats.map((prevChat) => prevChat.title).reverse())
   )
+  return (
+    <>
+      <div className="container">
+        <section className="sidebar">
+          <div className="sidebar-header" onClick={createNewChat} role="button">
+            <BiPlus size={20} />
+            <button>New Chat</button>
+          </div>
+          <div className="sidebar-history">
+            {uniqueTitles.length > 0 && <p>Today</p>}
+            <ul>
+              {uniqueTitles?.map((uniqueTitle, idx) => (
+                <li key={idx} onClick={() => backToHistoryPrompt(uniqueTitle)}>
+                  <BiComment />
+                  {uniqueTitle.slice(0, 18)}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="sidebar-info">
+            <div className="sidebar-info-upgrade">
+              <BiUser />
+              <p>Upgrade to Plus</p>
+            </div>
+            <div className="sidebar-info-user">
+              <BiFace />
+              <p>batman@gmail.com</p>
+            </div>
+          </div>
+        </section>
