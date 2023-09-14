@@ -148,3 +148,41 @@ function App() {
               ))}
             </ul>
           </div>
+          <div className="main-bottom">
+            {isRateLimitError && (
+              <p>
+                Rate limit reached for default-gpt-3.5-turbo. Please try again
+                in 20s.
+              </p>
+            )}
+            <form className="form-container" onSubmit={submitHandler}>
+              <input
+                type="text"
+                placeholder="Send a message."
+                spellCheck="false"
+                value={
+                  isResponseLoading
+                    ? 'Loading...'
+                    : text.charAt(0).toUpperCase() + text.slice(1)
+                }
+                onChange={(e) => setText(e.target.value)}
+                readOnly={isResponseLoading}
+              />
+              {!isResponseLoading && (
+                <button type="submit">
+                  <BiSend size={20} />
+                </button>
+              )}
+            </form>
+            <p>
+              Free Research Preview. ChatGPT may produce inaccurate information
+              about people, places, or facts. ChatGPT May 3 Version
+            </p>
+          </div>
+        </section>
+      </div>
+    </>
+  )
+}
+
+export default App
