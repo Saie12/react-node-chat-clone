@@ -1,10 +1,10 @@
-# 🎶react-node-chatgpt-clone 👀
+# 🎶react-node-chatgpt-plugin 👀
 
 ##  ༼ つ ◕_◕ ༽つ 💬
 
 ### Right Now!!✌👏👏
 
-Just doing actually playing with OpenAI API by building a chatgpt clone with Javascript, React and Node.js .
+Just doing actually playing with OpenAI API by building a chatgpt plugin with Javascript, React and Node.js .
 
 <br />
 
