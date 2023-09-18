@@ -198,3 +198,13 @@
     transform: rotate(-45deg);
   }
   
+  .form-container svg:hover {
+    fill: #8E8FA1;
+  }
+  
+  @media screen and (min-width:1280px) {
+    .main-header li {
+      margin: 1rem auto;
+      width: 745px;
+    }
+  }
